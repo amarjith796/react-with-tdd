@@ -1,7 +1,8 @@
 
 :root {
   /* font */
-  --main-font: 'Orbitron', sans-serif;
+  /* --main-font: 'Orbitron', sans-serif; */
+  --main-font: 'monospace', sans-serif;
 }
 
 

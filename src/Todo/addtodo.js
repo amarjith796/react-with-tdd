@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const AddTodo = ({ handleAddTask }) => {
     let textInput = React.createRef();
     return (
-        <div style={{ display: 'flex', width: '500px' }}>
+        <div style={{ display: 'flex', width: '60vw' }}>
             <input ref={textInput} style={{ flex: 1 }} />
             <button style={{ padding: '10px', background: 'steelblue', border: '1px solid steelblue', cursor: 'pointer' }} onClick={() => { handleAddTask(textInput.current.value); textInput.current.value = ''; }}>
                 Addtodo
