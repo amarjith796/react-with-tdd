@@ -43,11 +43,9 @@ class EditTodo extends Component {
         handleUpdateTodo(editText, model.text)
     }
     render() {
-        const { editText, handleUpdateTodo } = this.props;
         const { textInput } = this.state;
         return (
             <div style={{ display: 'flex', width: '60vw' }}>
-                {/* <input type='text' style={{ flex: 1 }} value={textInput} onChange={this.handleOnchange} /> */}
                 <Formsy style={{ flex: 1, display: 'flex' }} onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
                     <MyInput
                         name="text"

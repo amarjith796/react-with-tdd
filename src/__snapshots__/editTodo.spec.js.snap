@@ -49,6 +49,7 @@ ShallowWrapper {
         showRequired={[Function]}
         style={
           Object {
+            "display": "flex",
             "flex": 1,
           }
         }
@@ -74,12 +75,12 @@ ShallowWrapper {
           }
           type="submit"
         >
-          Submit
+          Update
         </button>
       </Formsy>,
       "style": Object {
         "display": "flex",
-        "width": "500px",
+        "width": "60vw",
       },
     },
     "ref": null,
@@ -109,7 +110,7 @@ ShallowWrapper {
             }
             type="submit"
           >
-            Submit
+            Update
           </button>,
         ],
         "disabled": false,
@@ -139,6 +140,7 @@ ShallowWrapper {
         "showError": [Function],
         "showRequired": [Function],
         "style": Object {
+          "display": "flex",
           "flex": 1,
         },
         "validationErrors": null,
@@ -166,7 +168,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "Submit",
+            "children": "Update",
             "disabled": true,
             "style": Object {
               "background": "steelblue",
@@ -177,7 +179,7 @@ ShallowWrapper {
             "type": "submit",
           },
           "ref": null,
-          "rendered": "Submit",
+          "rendered": "Update",
           "type": "button",
         },
       ],
@@ -220,6 +222,7 @@ ShallowWrapper {
           showRequired={[Function]}
           style={
             Object {
+              "display": "flex",
               "flex": 1,
             }
           }
@@ -245,12 +248,12 @@ ShallowWrapper {
             }
             type="submit"
           >
-            Submit
+            Update
           </button>
         </Formsy>,
         "style": Object {
           "display": "flex",
-          "width": "500px",
+          "width": "60vw",
         },
       },
       "ref": null,
@@ -280,7 +283,7 @@ ShallowWrapper {
               }
               type="submit"
             >
-              Submit
+              Update
             </button>,
           ],
           "disabled": false,
@@ -310,6 +313,7 @@ ShallowWrapper {
           "showError": [Function],
           "showRequired": [Function],
           "style": Object {
+            "display": "flex",
             "flex": 1,
           },
           "validationErrors": null,
@@ -337,7 +341,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": "Submit",
+              "children": "Update",
               "disabled": true,
               "style": Object {
                 "background": "steelblue",
@@ -348,7 +352,7 @@ ShallowWrapper {
               "type": "submit",
             },
             "ref": null,
-            "rendered": "Submit",
+            "rendered": "Update",
             "type": "button",
           },
         ],

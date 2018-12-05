@@ -1,154 +1,178 @@
 import React, { Component } from 'react';
-import { Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link, NavLink } from "react-router-dom";
 import './App.css';
 import TodoView from "./Todo/todo"
 import AddTodo from "./Todo/addtodo";
 import EditTodo from "./Todo/EditTodo";
 import createBrowserHistory from "history/createBrowserHistory";
 import { withRouter } from "react-router";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleCompleteTask, handleDeleteTask, handleAddTask, handleCheckedBox, handleEditTask, handleUpdateEditTask, handleDeleteAll, handleDeleteSelectedTask } from "./actions/todo.actions"
 const customHistory = createBrowserHistory();
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [{ taskname: 'C', status: true },
-      { taskname: 'C++', status: false },
-      { taskname: 'Java', status: false },
-      { taskname: 'Python', status: false },
-      { taskname: 'COBOL', status: false }],
-      editText: ''
-    }
   }
 
   handleStatus = (name) => {
-    let data = [...this.state.data];
+    let data = [...this.props.data];
     let index = data.findIndex(d => d.taskname === name);
-    data[index].status = !data[index].status;
-    this.setState({
-      data: data
-    })
+    this.props.handleCompleteTask(index, name);
+  }
+  handleCheckedBox = (name, checked) => {
+    let data = [...this.props.data];
+    let index = data.findIndex(d => d.taskname === name);
+    this.props.handleCheckedBox(index, name, checked);
   }
 
   handleDelete = (obj) => {
-    let data = [...this.state.data];
-    data = data.filter(d => d.taskname != obj.taskname);
-    this.setState({
-      data: data,
-      editText: ''
-    })
+    this.props.handleDeleteTask(obj.taskname);
   }
 
   handleAddTask = (taskname) => {
     if (!taskname) return;
-    let data = [...this.state.data];
-    data.push({
-      taskname: taskname,
-      status: false
-    });
-    this.setState({
-      data: data
-    })
+    this.props.handleAddTask(taskname);
   }
 
   handleEditTodo = (taskname) => {
-    this.setState({
-      editText: taskname
-    })
+    this.props.handleEditTask(taskname);
   }
   handleUpdateTodo = (prevtaskname, taskname) => {
-    let data = [...this.state.data];
+    let data = [...this.props.data];
     let index = data.findIndex(d => d.taskname === prevtaskname);
-    data[index].taskname = taskname;
-    this.setState({
-      data: data,
-      editText: ''
-    })
+    this.props.handleUpdateEditTask(index, taskname);
   }
-
+  handleDeleteSelected = (data) => {
+    this.props.handleDeleteSelectedTask(data)
+  }
+  handleDeleteAll = () => {
+    this.props.handleDeleteAll()
+  }
   render() {
-    const { data, editText } = this.state;
+    const { data, editText } = this.props;
     return (
-      <Router history={customHistory}>
-        <div className="App-header">
-          <nav style={{ width: '60vw' }}>
-            <ul style={{ display: 'flex', width: '100%', padding: 0 }}>
-              <li style={{ listStyleType: 'none', flex: 1 }}>
-                <Link to="/">All Task</Link>
-              </li>
-              <li style={{ listStyleType: 'none', flex: 1, textAlign: 'center' }}>
-                <Link to="/completed/" to={{
-                  pathname: "/completed/",
-                  state: { completed: true }
-                }}>Complete Task</Link>
-              </li>
-              <li style={{ listStyleType: 'none', flex: 1, textAlign: 'end' }}>
-                <Link to="/completed/" to={{
-                  pathname: "/incompleted/",
-                  state: { completed: false }
-                }}>InComplete Task</Link>
-              </li>
-            </ul>
-          </nav>
+      <div>
+        <Router history={customHistory}>
+          <div className="App-header">
+            <nav style={{ width: '60vw' }}>
+              <ul style={{ display: 'flex', width: '100%', padding: 0 }}>
+                <li style={{ listStyleType: 'none', flex: 1 }}>
+                  <NavLink exact to="/" activeStyle={{
+                    fontWeight: "bold",
+                    color: "red"
+                  }}>All Task</NavLink>
+                </li>
+                <li style={{ listStyleType: 'none', flex: 1, textAlign: 'center' }}>
+                  <NavLink exact to="/completed/" to={{
+                    pathname: "/completed/",
+                    state: { completed: true }
+                  }} activeStyle={{
+                    fontWeight: "bold",
+                    color: "red"
+                  }}>Complete Task</NavLink>
+                </li>
+                <li style={{ listStyleType: 'none', flex: 1, textAlign: 'end' }}>
+                  <NavLink exact to="/completed/" to={{
+                    pathname: "/incompleted/",
+                    state: { completed: false }
+                  }} activeStyle={{
+                    fontWeight: "bold",
+                    color: "red"
+                  }}>InComplete Task</NavLink>
+                </li>
+              </ul>
+            </nav>
 
-          <Route path="/" exact render={() => {
-            return <AllComponents data={data}
-              handleStatus={this.handleStatus}
-              handleDelete={this.handleDelete}
-              handleEditTodo={this.handleEditTodo}
-              handleAddTask={this.handleAddTask}
-              editText={editText}
-              handleUpdateTodo={this.handleUpdateTodo}
-            />
-          }} />
-          <Route path="/completed/" render={() => {
-            return <AllComponents data={data}
-              handleStatus={this.handleStatus}
-              handleDelete={this.handleDelete}
-              handleEditTodo={this.handleEditTodo}
-              handleAddTask={this.handleAddTask}
-              editText={editText}
-              handleUpdateTodo={this.handleUpdateTodo}
-            />
-          }} />
-          <Route path="/incompleted/" render={() => {
-            return <AllComponents data={data}
-              handleStatus={this.handleStatus}
-              handleDelete={this.handleDelete}
-              handleEditTodo={this.handleEditTodo}
-              handleAddTask={this.handleAddTask}
-              editText={editText}
-              handleUpdateTodo={this.handleUpdateTodo}
-            />
-          }} />
-        </div>
+            <Route path="/" exact render={() => {
+              return <AllComponents data={data}
+                handleStatus={this.handleStatus}
+                handleDelete={this.handleDelete}
+                handleEditTodo={this.handleEditTodo}
+                handleAddTask={this.handleAddTask}
+                editText={editText}
+                handleUpdateTodo={this.handleUpdateTodo}
+                handleDeleteSelected={this.handleDeleteSelected}
+                handleDeleteAll={this.handleDeleteAll}
+                handleCheckedBox={this.handleCheckedBox}
+              />
+            }} />
+            <Route path="/completed/" render={() => {
+              return <AllComponents data={data}
+                handleStatus={this.handleStatus}
+                handleDelete={this.handleDelete}
+                handleEditTodo={this.handleEditTodo}
+                handleAddTask={this.handleAddTask}
+                editText={editText}
+                handleUpdateTodo={this.handleUpdateTodo}
+                handleDeleteSelected={this.handleDeleteSelected}
+                handleDeleteAll={this.handleDeleteAll}
+                handleCheckedBox={this.handleCheckedBox}
+              />
+            }} />
+            <Route path="/incompleted/" render={() => {
+              return <AllComponents data={data}
+                handleStatus={this.handleStatus}
+                handleDelete={this.handleDelete}
+                handleEditTodo={this.handleEditTodo}
+                handleAddTask={this.handleAddTask}
+                editText={editText}
+                handleUpdateTodo={this.handleUpdateTodo}
+                handleDeleteSelected={this.handleDeleteSelected}
+                handleDeleteAll={this.handleDeleteAll}
+                handleCheckedBox={this.handleCheckedBox}
+              />
+            }} />
 
-      </Router>
+          </div>
 
+        </Router>
+      </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (store) => {
+  return {
+    data: store.todos.data,
+    editText: store.todos.editText
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    handleCompleteTask: handleCompleteTask,
+    handleDeleteTask: handleDeleteTask,
+    handleAddTask: handleAddTask,
+    handleEditTask: handleEditTask,
+    handleUpdateEditTask: handleUpdateEditTask,
+    handleDeleteSelectedTask: handleDeleteSelectedTask,
+    handleDeleteAll: handleDeleteAll,
+    handleCheckedBox: handleCheckedBox
+  }, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 const AllComponent = (props) => {
-  const { editText, location, handleUpdateTodo, handleAddTask, data, handleStatus, handleDelete, handleEditTodo } = props;
+  const { editText, location, handleUpdateTodo, handleCheckedBox, handleDeleteAll, handleDeleteSelected, handleAddTask, data, handleStatus, handleDelete, handleEditTodo } = props;
   let cloneData = [...data]
   if (props.location.state) {
     let completed = location.state.completed;
     cloneData = cloneData.filter((d) => { return d.status === completed })
   }
   return (
-    <React.Fragment>
+    <div>
       {
-        editText ? <EditTodo editText={editText} handleUpdateTodo={handleUpdateTodo} />
-          : <AddTodo handleAddTask={handleAddTask} />
+        editText ? <EditTodo editText={editText} handleUpdateTodo={handleUpdateTodo} /> : <AddTodo handleAddTask={handleAddTask} />
       }
       <TodoView data={cloneData}
         handleStatus={handleStatus}
         handleDelete={handleDelete}
-        handleEditTodo={handleEditTodo} />
-    </React.Fragment>
+        handleEditTodo={handleEditTodo}
+        handleDeleteSelected={handleDeleteSelected}
+        handleDeleteAll={handleDeleteAll}
+        handleCheckedBox={handleCheckedBox} />
+    </div>
   );
 }
 const AllComponents = withRouter(AllComponent)

@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <TodoView
     data={Array []}
     handleDelete={[MockFunction]}
+    handleDeleteSelected={[MockFunction]}
     handleEditTodo={[MockFunction]}
     handleStatus={[MockFunction]}
   />,
@@ -23,13 +24,30 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <h2>
+        <h2
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
           TODO TASK 
         </h2>,
+        <button
+          onClick={[Function]}
+        >
+          Delete Selected
+        </button>,
+        " ",
+        <button>
+          DeleteAll
+        </button>,
         Array [],
       ],
       "style": Object {
-        "background": "rebeccapurple",
+        "background": "darkslategray",
+        "minHeight": "600px",
+        "width": "60vw",
       },
     },
     "ref": null,
@@ -40,10 +58,38 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "TODO TASK ",
+          "style": Object {
+            "textAlign": "center",
+          },
         },
         "ref": null,
         "rendered": "TODO TASK ",
         "type": "h2",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Delete Selected",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": "Delete Selected",
+        "type": "button",
+      },
+      " ",
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "DeleteAll",
+          "onClick": undefined,
+        },
+        "ref": null,
+        "rendered": "DeleteAll",
+        "type": "button",
       },
     ],
     "type": "div",
@@ -55,13 +101,30 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <h2>
+          <h2
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
             TODO TASK 
           </h2>,
+          <button
+            onClick={[Function]}
+          >
+            Delete Selected
+          </button>,
+          " ",
+          <button>
+            DeleteAll
+          </button>,
           Array [],
         ],
         "style": Object {
-          "background": "rebeccapurple",
+          "background": "darkslategray",
+          "minHeight": "600px",
+          "width": "60vw",
         },
       },
       "ref": null,
@@ -72,10 +135,38 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "TODO TASK ",
+            "style": Object {
+              "textAlign": "center",
+            },
           },
           "ref": null,
           "rendered": "TODO TASK ",
           "type": "h2",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Delete Selected",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Delete Selected",
+          "type": "button",
+        },
+        " ",
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "DeleteAll",
+            "onClick": undefined,
+          },
+          "ref": null,
+          "rendered": "DeleteAll",
+          "type": "button",
         },
       ],
       "type": "div",
